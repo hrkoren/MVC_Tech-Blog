@@ -1,0 +1,12 @@
+<div class="container">
+    <h2 id="dashboard">Blog Dashboard</h2>
+    <section>
+        {{#if posts.length}}
+        <h3 class="display-6">Posts</h3>
+        {{#each post as |post| }}
+        {{> dashboard-post post}}
+        {{/each}}
+        {{/if}}
+    </section>
+    <a class="link"></a><button type="button" class="btn btn-primary">New Post</button></a>
+</div>
