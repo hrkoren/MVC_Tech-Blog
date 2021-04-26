@@ -1,0 +1,17 @@
+[
+    {
+        "title": "Git Repos",
+        "content": "Create unique repos to showcase your projects. Check out my next blog for tips and tricks.",
+        "user_id": 1
+    },
+    {
+        "title": "MVC",
+        "content": "Learn about MVC - Model, View, Controller concept for coding.",
+        "user_id": 2
+    },
+    {
+        "title": "Work Life Balance",
+        "content": "All work and no play, makes Jack a dull boy - don't be like Jack from The Shining.",
+        "user_id": 3
+    }
+]

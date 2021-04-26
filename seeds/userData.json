@@ -1,0 +1,17 @@
+[
+    {
+        "username": "blog_techie",
+        "email": "techie@mail.com",
+        "password": "password1234$"
+    },
+    {
+        "username": "venus_commit",
+        "email": "venus@mail.com",
+        "password": "password123400"
+    },
+    {
+        "username": "accept_code",
+        "email": "accept@mail.com",
+        "password": "pwd01826pwd"
+    }
+]
