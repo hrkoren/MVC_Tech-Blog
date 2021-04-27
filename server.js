@@ -17,10 +17,10 @@ const sess = {
     secret: 'Super secret secret',
     cookie: {},
     resave: false,
-    saveUninitized: true,
+    saveUninitialized: true,
     store: new SequelizeStore({
-        db: sequelize
-    })
+        db: sequelize,
+    }),
 };
 
 app.use(session(sess));
@@ -35,7 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(routes);
 
 sequelize.sync({ force: false }).then(() => {
-    app.listen(PORT, () => consol.log('Now Listening'));
+    app.listen(PORT, () => console.log('Now Listening'));
 });
 
-module.exports = router;
+// module.exports = router;
