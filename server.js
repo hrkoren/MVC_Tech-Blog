@@ -37,3 +37,5 @@ app.use(routes);
 sequelize.sync({ force: false }).then(() => {
     app.listen(PORT, () => consol.log('Now Listening'));
 });
+
+module.exports = router;
