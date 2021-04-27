@@ -25,10 +25,10 @@ router.get('/', (req, res) => {
 });
 
 //creat new post
-router.post('/', (req, res) => {
-    Post.create(req.body)
-        .then((post) => {
-            if (req.body.post)
-    })
-})
+// router.post('/', (req, res) => {
+//     Post.create(req.body)
+//         .then((post) => {
+//             if (req.body.post)
+//     })
+// })
 
