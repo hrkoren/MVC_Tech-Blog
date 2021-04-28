@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Post, Comment } = require('../models');
+const { Post, Comment, User } = require('../models');
 const sequelize = require('../config/connection');
 
 //get all posts for homepage
@@ -23,15 +23,36 @@ router.get('/', async (req, res) => {
                 }
             ],
         });
-        const posts = postData.map((post) =>
+        const post = postData.map((post) =>
             post.get({ plain: true })
         );
         res.render('homepage', {
-            posts,
+            post,
             loggedIn: req.session.loggedIn,
         });
     } catch (err) {
         console.log(err);
+        res.status(500).json(err);
+    }
+});
+
+router.get('/post/:id', async (req, res) => {
+    try {
+        const postData = await Post.findByPk(req.params.id, {
+            include: [
+                {
+                    model: User,
+                    attributes: ['name', ,]
+                },
+            ]
+        });
+        const post = post.get({ plain: true });
+
+        res.render('post', {
+            ...post,
+            loggedIn: req.session.loggedIn
+        });
+    } catch (err) {
         res.status(500).json(err);
     }
 });
