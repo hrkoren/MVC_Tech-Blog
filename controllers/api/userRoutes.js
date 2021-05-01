@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
-
+    console.log('/login');
     try {
         const userData = await User.findOne({ where: { email: req.body.email } });
         if (!userData) {
@@ -27,12 +27,14 @@ router.post('/login', async (req, res) => {
             return;
         }
         req.session.save(() => {
-            req.session.user_id = userData.id;
+            req.session.id = userData.id;
             req.session.loggedIn = true;
+            console.log(userData);
             res.json({ user: userData, message: 'You are successfully logged in! Happy Blogging!' });
-        })
+        });
+        res.render('dashboard');
     } catch (err) {
-        res.status(400).json(err);
+        res.status(400).json(err.message);
     }
 });
 
@@ -44,6 +46,10 @@ router.post('/logout', (req, res) => {
     } else {
         res.status(404).end();
     }
+});
+
+router.get('/dashboard', (req, res) => {
+    res.render('dashboard');
 });
 
 module.exports = router;

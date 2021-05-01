@@ -6,7 +6,7 @@ const withAuth = require('../utils/auth');
 router.get('/', withAuth, (req, res) => {
     Post.findAll({
         where: {
-            user_id: req.session.user_id
+            user_id: req.session.id
         },
         attributes: [
             'id',
@@ -38,6 +38,10 @@ router.get('/', withAuth, (req, res) => {
             console.log(err);
             res.status(500).json(err);
         });
+});
+
+router.get('/posts', (req, res) => {
+    res.render('posts');
 });
 
 module.exports = router;

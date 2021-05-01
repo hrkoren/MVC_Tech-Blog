@@ -55,7 +55,7 @@ router.get('/posts/:id', (req, res) => {
             }
         ]
     })
-        .then(postData => res.json(postData))
+        .then(data => res.json(data))
         .catch(err => {
             console.log(err);
             res.status(500).json(err);
@@ -69,11 +69,16 @@ router.post('/posts', withAuth, (req, res) => {
         content: req.body.content,
         user_id: req.session.user_id,
     })
-        .then(postData => res.json(postData))
+        .then(data => res.json(data))
         .catch(err => {
             console.log(err);
             res.status(500).json(err);
         });
 });
+
+router.get('/posts', (req, res) => {
+    res.render('posts');
+});
+
 
 module.exports = router;
