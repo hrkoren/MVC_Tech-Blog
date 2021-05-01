@@ -35,7 +35,7 @@ router.get('/', (req, res) => {
 });
 
 //get by id
-router.get('/:id', (req, res) => {
+router.get('/posts/:id', (req, res) => {
     Post.findByPk(req.params.id, {
 
         attributes: [
@@ -63,7 +63,7 @@ router.get('/:id', (req, res) => {
 });
 
 //create new post
-router.post('/', withAuth, (req, res) => {
+router.post('/posts', withAuth, (req, res) => {
     Post.create({
         title: req.body.title,
         content: req.body.content,

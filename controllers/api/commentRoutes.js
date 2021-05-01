@@ -3,7 +3,7 @@ const { Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
 //get comments
-router.get('/', (req, res) => {
+router.get('/posts', (req, res) => {
     Comment.findAll()
         .then(data => res.json(data))
         .catch(err => {
@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
 
 
 //create new comment
-router.post('/', withAuth, (req, res) => {
+router.post('/posts', withAuth, (req, res) => {
     if (req.session) {
         Comment.create({
             content: req.body.content,

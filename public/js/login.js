@@ -1,14 +1,12 @@
-const { response } = require("express");
-
 //login handler function
 async function loginFormHandler(event) {
     event.preventDefault();
 
     const email = document.querySelector('#emailLogin').value.trim();
-    const password = document.querySelector('#passwordLogin').value.trim();
+    const password = document.querySelector('#pwdLogin').value.trim();
 
     if (email && password) {
-        const response = await fetch('/api/userRoutes/login', {
+        const response = await fetch('/api/users/login', {
             method: 'post',
             body: JSON.stringify({
                 email,

@@ -1,8 +1,19 @@
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title">{{ title }}</h4>
-        <p class="card-text">{{ content }}</p>
-        <p> class="card-text">{{ comments }}</p>
+        <section>
+            {{#if posts.length}}
+            <h3 class="display-6">Posts</h3>
+            {{#each posts as |post| }}
+            {{> postlist post}}
+            {{/each}}
+            {{/if}}
+        </section>
+        <section>
+            <a class="link"></a><button type="button" class="btn btn-primary">New Post</button></a>
+            <h4 class="card-title">{{ title }}</h4>
+            <p class="card-text">{{ content }}</p>
+            <p class="card-text">{{ comments }}</p>
+        </section>
         <div class="card-footer">
             {{ user.username }}
             {{ date_posted }}
