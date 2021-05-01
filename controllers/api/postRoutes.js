@@ -4,8 +4,11 @@ const sequelize = require('../../config/connection');
 const withAuth = require('../../utils/auth');
 
 //Get posts
-router.get('/', (req, res) => {
+router.get('/', withAuth, (req, res) => {
     Post.findAll({
+        where: {
+            user_id: req.session.id
+        },
         attributes: [
             'id',
             'title',
@@ -27,15 +30,23 @@ router.get('/', (req, res) => {
             }
         ]
     })
-        .then(postData => res.json(postData))
+        .then(data => {
+            const posts = data.map(post =>
+                post.get({ plain: true }));
+            res.render('posts', { posts, loggedIn: true });
+        })
         .catch(err => {
             console.log(err);
             res.status(500).json(err);
         });
 });
 
-//get by id
-router.get('/posts/:id', (req, res) => {
+router.get('/posts', (req, res) => {
+    res.render('posts');
+});
+
+// get by id
+router.get('/:id', (req, res) => {
     Post.findByPk(req.params.id, {
 
         attributes: [
@@ -55,7 +66,13 @@ router.get('/posts/:id', (req, res) => {
             }
         ]
     })
-        .then(data => res.json(data))
+    then(data => {
+        if (!data) {
+            res.status(404).status({ message: 'No posts found with that information.' });
+            return;
+        }
+        res.json(data);
+    })
         .catch(err => {
             console.log(err);
             res.status(500).json(err);
@@ -69,16 +86,11 @@ router.post('/posts', withAuth, (req, res) => {
         content: req.body.content,
         user_id: req.session.user_id,
     })
-        .then(data => res.json(data))
+    then(data => res.json(data))
         .catch(err => {
             console.log(err);
             res.status(500).json(err);
         });
 });
-
-router.get('/posts', (req, res) => {
-    res.render('posts');
-});
-
 
 module.exports = router;
