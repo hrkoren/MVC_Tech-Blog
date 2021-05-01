@@ -1,11 +1,11 @@
 //Post form handler
 async function newFormHandler(event) {
     event.preventDefault();
-
+    console.log('#newPost');
     const title = document.querySelector('input[name="title"]').value;
     const content = document.querySelector('content[name="content"]').value;
 
-    const response = await fetch(`/api/posts`, {
+    const response = await fetch('/api/posts', {
         method: 'POST',
         body: JSON.stringify({
             title,
@@ -16,10 +16,10 @@ async function newFormHandler(event) {
         }
     });
     if (response.ok) {
-        document.location.replace('/dashboard');
+        window.location.replace('/posts');
     } else {
         console.log(response.statusText);
     }
 }
 
-document.querySelector('.postForm').addEventListener('submit', newFormHandler);
+document.getElementById('newPost').addEventListener('submit', newFormHandler);

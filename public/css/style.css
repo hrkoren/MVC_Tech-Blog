@@ -10,11 +10,32 @@ body {
   color: blue;
 }
 
-a {
+a,
+.btn {
   font-size: 15px;
   background-color: blue;
   color: white;
   font-weight: bold;
+  margin: 2px;
+}
+
+header {
+  background-color: rgb(150, 148, 148);
+  padding: 2px;
+}
+
+.card {
+  display: block;
+  border: 3px;
+  border-radius: 5px;
+  border-color: blue;
+}
+
+.card-text {
+  font-family: Verdana;
+  border: 3px;
+  border-radius: 5px;
+  border-color: blue;
 }
 
 .post {
