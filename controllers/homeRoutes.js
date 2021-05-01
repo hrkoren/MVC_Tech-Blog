@@ -29,9 +29,11 @@ router.get('/', (req, res) => {
         .then(postData => {
             const posts = postData.map((post =>
                 post.get({ plain: true })
+
             ));
+            console.log(posts);
             res.render('homepage', {
-                post,
+                posts,
                 loggedIn: req.session.loggedIn,
             });
         })
@@ -60,6 +62,10 @@ router.get('/post/:id', async (req, res) => {
     } catch (err) {
         res.status(500).json(err);
     }
+});
+
+router.get('/login', (req, res) => {
+    res.render('login');
 });
 
 module.exports = router;

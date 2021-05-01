@@ -1,8 +1,10 @@
 <div>
-    {{#each post as |post}}
-    {{> post post }}
+    {{#each posts as |post|}}
+    {{> postlist post }}
+    {{/each}}
 </div>
-<div>
-    {{else}}
-    <h3 class="display-6">No blogs posted yet.</h3>
-</div>
+{{!-- <div> --}}
+    {{!-- {{else}}
+    <h3 class="display-6">No blogs posted yet.</h3> --}}
+    {{!--
+</div> --}}

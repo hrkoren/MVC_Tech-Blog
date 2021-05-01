@@ -1,10 +1,11 @@
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title">{{{ blogTitle }}}</h4>
-        <p class="card-text">{{{ blogContent }}}</p>
+        <h4 class="card-title">{{ title }}</h4>
+        <p class="card-text">{{ content }}</p>
+        <p> class="card-text">{{ comments }}</p>
         <div class="card-footer">
-            {{ username }}
-            {{ dateCreated }}
+            {{ user.username }}
+            {{ date_posted }}
         </div>
     </div>
 </div>

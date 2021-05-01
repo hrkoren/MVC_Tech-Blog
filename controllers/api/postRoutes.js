@@ -36,10 +36,8 @@ router.get('/', (req, res) => {
 
 //get by id
 router.get('/:id', (req, res) => {
-    Post.findByPk({
-        where: {
-            id: req.params.include
-        },
+    Post.findByPk(req.params.id, {
+
         attributes: [
             'id',
             'title',
@@ -53,7 +51,7 @@ router.get('/:id', (req, res) => {
             },
             {
                 model: Comment,
-                attributes: ['id', 'content', 'post_id', 'username', 'date_created']
+                attributes: ['id', 'content', 'post_id', 'user_id', 'date_posted']
             }
         ]
     })
