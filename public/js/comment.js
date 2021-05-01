@@ -11,7 +11,7 @@ async function newFormHandler(event) {
         const response = await fetch('api/comment', {
             method: 'POST',
             body: JSON.stringify({
-                postID,
+                post_id,
                 content
             }),
             headers: {
