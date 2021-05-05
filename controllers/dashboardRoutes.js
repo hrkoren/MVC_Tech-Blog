@@ -3,8 +3,13 @@ const sequelize = require('../config/connection');
 const { Post, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
+// router.get('/posts', (req, res) => {
+//     res.render('posts');
+// });
+
 //display all posts
 router.get('/', withAuth, (req, res) => {
+    console.log(req.session);
     Post.findAll({
         where: {
             user_id: req.session.id
@@ -33,6 +38,7 @@ router.get('/', withAuth, (req, res) => {
         .then(data => {
             const posts = data.map(post =>
                 post.get({ plain: true }));
+            console.log(posts);
             res.render('dashboard', { posts, loggedIn: true });
         })
         .catch(err => {
@@ -40,5 +46,7 @@ router.get('/', withAuth, (req, res) => {
             res.status(500).json(err);
         });
 });
+
+
 
 module.exports = router;

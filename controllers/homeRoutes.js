@@ -2,6 +2,34 @@ const router = require('express').Router();
 const { Post, Comment, User } = require('../models');
 const sequelize = require('../config/connection');
 
+
+
+router.get('/login', (req, res) => {
+    console.log('login route');
+    res.render('login');
+});
+
+router.get('/:id', async (req, res) => {
+    try {
+        const postData = await Post.findByPk(req.params.id, {
+            include: [
+                {
+                    model: User,
+                    attributes: ['name', ,]
+                },
+            ]
+        });
+        const post = post.get({ plain: true });
+
+        res.render('posts', {
+            ...post,
+            loggedIn: req.session.loggedIn
+        });
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
 //get all posts for homepage
 router.get('/', (req, res) => {
     Post.findAll({
@@ -27,13 +55,13 @@ router.get('/', (req, res) => {
         ],
     })
         .then(data => {
-            const posts = data.map((post =>
+            const post = data.map((post =>
                 post.get({ plain: true })
 
             ));
-            console.log(posts);
+            console.log(post);
             res.render('homepage', {
-                posts,
+                post,
                 loggedIn: req.session.loggedIn,
             });
         })
@@ -41,31 +69,6 @@ router.get('/', (req, res) => {
             console.log(err);
             res.status(500).json(err);
         });
-});
-
-router.get('/:id', async (req, res) => {
-    try {
-        const postData = await Post.findByPk(req.params.id, {
-            include: [
-                {
-                    model: User,
-                    attributes: ['name', ,]
-                },
-            ]
-        });
-        const post = post.get({ plain: true });
-
-        res.render('posts', {
-            ...posts,
-            loggedIn: req.session.loggedIn
-        });
-    } catch (err) {
-        res.status(500).json(err);
-    }
-});
-
-router.get('/login', (req, res) => {
-    res.render('login');
 });
 
 module.exports = router;

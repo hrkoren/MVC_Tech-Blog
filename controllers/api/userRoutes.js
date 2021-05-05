@@ -17,6 +17,7 @@ router.post('/login', async (req, res) => {
     console.log('/login');
     try {
         const userData = await User.findOne({ where: { email: req.body.email } });
+        console.log(userData);
         if (!userData) {
             res.status(400).json({ message: 'Incorrect email or password, please try again.' });
             return;
@@ -27,12 +28,13 @@ router.post('/login', async (req, res) => {
             return;
         }
         req.session.save(() => {
+            console.log(userData);
             req.session.id = userData.id;
             req.session.loggedIn = true;
             console.log(userData);
             res.json({ user: userData, message: 'You are successfully logged in! Happy Blogging!' });
         });
-        res.render('dashboard');
+        // res.render('dashboard');
     } catch (err) {
         res.status(400).json(err.message);
     }
@@ -48,8 +50,8 @@ router.post('/logout', (req, res) => {
     }
 });
 
-router.get('/dashboard', (req, res) => {
-    res.render('dashboard');
-});
+// router.get('/dashboard', (req, res) => {
+//     res.render('dashboard');
+// });
 
 module.exports = router;
