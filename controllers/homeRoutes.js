@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { Post, Comment, User } = require('../models');
 const sequelize = require('../config/connection');
 
-//get all posts for homepage
+//get all posts
 router.get('/', (req, res) => {
     Post.findAll({
         attributes: [
@@ -27,11 +27,11 @@ router.get('/', (req, res) => {
         ],
     })
         .then(data => {
-            const post = data.map((post =>
+            const post = data.map((post) =>
                 post.get({ plain: true })
 
-            ));
-            console.log(post);
+            );
+            // console.log(post);
             res.render('homepage', {
                 post,
                 loggedIn: req.session.loggedIn,
@@ -42,7 +42,7 @@ router.get('/', (req, res) => {
             res.status(500).json(err);
         });
 });
-
+//one post by id
 router.get('/:id', async (req, res) => {
     try {
         const postData = await Post.findByPk(req.params.id, {
@@ -63,7 +63,7 @@ router.get('/:id', async (req, res) => {
         res.status(500).json(err);
     }
 });
-
+//login
 router.get('/login', (req, res) => {
     // console.log('login route');
     if (req.session.loggedIn) {

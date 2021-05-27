@@ -1,17 +1,31 @@
 const router = require('express').Router();
 const { User } = require('../../models');
+const session = require('express-session');
 
-router.post('/', async (req, res) => {
-    try {
-        const userData = await User.create(req.body);
-        req.session.save(() => {
-            req.session.loggedIn = true;
-            res.status(200).json(userData);
+router.get('/', (req, res) => {
+    User.findAll({
+        attributes: {
+            exclude: ['password']
+        },
+    })
+        .then((userData) => res.json(userData))
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json(err.message);
         });
-    } catch (err) {
-        res.status(400).json(err);
-    }
 });
+
+// router.post('/', async (req, res) => {
+//     try {
+//         const userData = await User.create(req.body);
+//         req.session.save(() => {
+//             req.session.loggedIn = true;
+//             res.status(200).json(userData);
+//         });
+//     } catch (err) {
+//         res.status(400).json(err);
+//     }
+// });
 
 router.post('/login', async (req, res) => {
     console.log('/login');
@@ -28,14 +42,16 @@ router.post('/login', async (req, res) => {
             return;
         }
         req.session.save(() => {
-            console.log(userData);
-            req.session.id = userData.id;
+            // console.log(userData);
+            req.session.id = UserData.id;
+            req.session.username - UserData.username;
             req.session.loggedIn = true;
-            console.log(userData);
-            res.json({ user: userData, message: 'You are successfully logged in! Happy Blogging!' });
+            // console.log(userData);
+            res.status(200).json({ user: userData, message: 'You are successfully logged in! Happy Blogging!' });
         });
-        // res.render('dashboard');
+        // res.redirect('dashboard');
     } catch (err) {
+        console.log(err);
         res.status(400).json(err.message);
     }
 });
@@ -50,8 +66,8 @@ router.post('/logout', (req, res) => {
     }
 });
 
-// router.get('/dashboard', (req, res) => {
-//     res.render('dashboard');
-// });
+router.get('/dashboard', (req, res) => {
+    res.redirect('dashboard');
+});
 
 module.exports = router;
