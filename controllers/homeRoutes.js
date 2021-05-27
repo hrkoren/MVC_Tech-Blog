@@ -43,26 +43,39 @@ router.get('/', (req, res) => {
         });
 });
 //one post by id
-router.get('/:id', async (req, res) => {
-    try {
-        const postData = await Post.findByPk(req.params.id, {
-            include: [
-                {
-                    model: User,
-                    attributes: ['name', ,]
-                },
-            ]
-        });
-        const post = post.get({ plain: true });
+router.get('/:id', (req, res) => {
+    Post.findByPk(req.params.id, {
 
-        res.render('posts', {
-            ...post,
-            loggedIn: req.session.loggedIn
+        attributes: [
+            'id',
+            'title',
+            'content',
+            'date_posted'
+        ],
+        include: [
+            {
+                model: User,
+                attributes: ['username']
+            },
+            {
+                model: Comment,
+                attributes: ['id', 'content', 'post_id', 'user_id', 'date_posted']
+            }
+        ]
+    })
+        .then(data => {
+            if (!data) {
+                res.status(404).status({ message: 'No posts found with that information.' });
+                return;
+            }
+            res.json(data);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
         });
-    } catch (err) {
-        res.status(500).json(err);
-    }
 });
+
 //login
 router.get('/login', (req, res) => {
     // console.log('login route');
